@@ -22,6 +22,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+BuildHost-net472/
+BuildHost-netcore/
 
 # .NET Core
 project.lock.json
