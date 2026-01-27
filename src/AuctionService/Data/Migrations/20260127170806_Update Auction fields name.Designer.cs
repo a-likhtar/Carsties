@@ -3,6 +3,7 @@ using System;
 using AuctionService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AuctionService.Data.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    partial class AuctionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260127170806_Update Auction fields name")]
+    partial class UpdateAuctionfieldsname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -17,8 +17,8 @@ public class AuctionServiceHttpClient
     public async Task<List<Item>> GetItemsForSearchDb()
     {
         var lastUpdated = await DB.Find<Item, string>()
-            .Sort(x => x.Descending(a => a.UpdatetAt))
-            .Project(x => x.UpdatetAt.ToString())
+            .Sort(x => x.Descending(a => a.UpdatedAt))
+            .Project(x => x.UpdatedAt.ToString())
             .ExecuteFirstAsync();
 
         return await _httpClient.GetFromJsonAsync<List<Item>>(_config["AuctionServiceUrl"]
