@@ -10,16 +10,16 @@ namespace SearchService.Controllers;
 public class SearchController : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<Item>>> SearchItems([FromQuery] SearchParams searchTerm)
+    public async Task<ActionResult<List<Item>>> SearchItems([FromQuery] SearchParams searchParams)
     {
         var query = DB.PagedSearch<Item, Item>();
 
-        if (!string.IsNullOrEmpty(searchTerm.SearchTerm))
+        if (!string.IsNullOrEmpty(searchParams.SearchTerm))
         {
-            query.Match(Search.Full, searchTerm.SearchTerm).SortByTextScore();
+            query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
         }
 
-        query = searchTerm.FilterBy switch
+        query = searchParams.FilterBy switch
         {
             "finished" => query.Match(x => x.AuctionEnd < DateTime.UtcNow),
             "endingSoon" => query.Match(x => x.AuctionEnd < DateTime.UtcNow.AddHours(6)
@@ -27,24 +27,24 @@ public class SearchController : ControllerBase
             _ => query.Match(x => x.AuctionEnd > DateTime.UtcNow)
         };
 
-        if (!string.IsNullOrEmpty(searchTerm.Seller))
+        if (!string.IsNullOrEmpty(searchParams.Seller))
         {
-            query.Match(x => x.Seller == searchTerm.Seller);
+            query.Match(x => x.Seller == searchParams.Seller);
         }
 
-        if (!string.IsNullOrEmpty(searchTerm.Winner))
+        if (!string.IsNullOrEmpty(searchParams.Winner))
         {
-            query.Match(x => x.Seller == searchTerm.Winner);
+            query.Match(x => x.Seller == searchParams.Winner);
         }
-        query = searchTerm.OrderBy switch
+        query = searchParams.OrderBy switch
         {
             "make" => query.Sort(x => x.Ascending(a => a.Make)),
             "new" => query.Sort(x => x.Ascending(a => a.CreatedAt)),
             _ => query.Sort(x => x.Ascending(a => a.AuctionEnd))
         };
 
-        query.PageNumber(searchTerm.PageNumber);
-        query.PageSize(searchTerm.PageSize);
+        query.PageNumber(searchParams.PageNumber);
+        query.PageSize(searchParams.PageSize);
         
         var result = await query.ExecuteAsync();
 
