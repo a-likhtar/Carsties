@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Carsties",
+    "Projects": [
+      {
+        "Path": "src\\AuctionService\\AuctionService.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\SearchService\\SearchService.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\IdentityService\\IdentityService.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
