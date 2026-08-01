@@ -4,11 +4,11 @@ using MassTransit;
 
 namespace AuctionService.Consumers
 {
-    public class BidPlacesConsumer : IConsumer<BidPlaced>
+    public class BidPlacedConsumer : IConsumer<BidPlaced>
     {
         private readonly AuctionDbContext _context;
 
-        BidPlacesConsumer(AuctionDbContext context)
+        public BidPlacedConsumer(AuctionDbContext context)
         {
             _context = context;
         }
